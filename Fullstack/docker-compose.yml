@@ -1,0 +1,29 @@
+versión: "3.9"
+
+servicios:
+  base de datos:
+    imagen: postgres:16-alpine
+    ambiente:
+      USUARIO_POSTGRES: postgres
+      CONTRASEÑA DE POSTGRES: postgres
+      POSTGRES_DB: gestión de usuarios
+    puertos:
+      - "5432:5432"
+    volúmenes:
+      - postgres_data:/var/lib/postgresql/datos
+
+  API:
+    construir:
+      contexto: ./backend
+    ambiente:
+      PUERTO: 4000
+      URL DE LA BASE DE DATOS: postgres://postgres:postgres@db:5432/gestion_usuarios
+      JWT_SECRET: cámbiame
+      CORREO ELECTRÓNICO DE ADMINISTRACIÓN: admin@ejemplo.com
+      CONTRASEÑA DE ADMINISTRADOR: admin123
+    puertos:
+      - "4000:4000"
+    depende_de: -db
+
+volúmenes:
+  datos_postgres:
